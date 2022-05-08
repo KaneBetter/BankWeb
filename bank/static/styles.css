@@ -1,0 +1,44 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+*:focus {
+    outline: none;
+}
+:root {
+    --button-color: #4681f4;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #DDD;
+    font-size: 16px;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.auth-wrapper {
+    position: relative;
+    margin: auto;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 500px;
+    height: 400px;
+}
+
+.auth-wrapper h1 {
+    margin: 0 0 20px 0;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+}
+
+.auth-wrapper .btn-wrapper {
+    position: relative;
+    margin: auto;
+    width: 50%;
+}
+
+.upper-padding {
+    padding-top: 20px;
+}

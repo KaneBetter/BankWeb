@@ -1,0 +1,44 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <div>
+        <div>
+            <h2>Welcome Back, {{ session['username'] }}</h2>
+        </div>
+        <div>
+<!--            Need to update from every transaction.-->
+                <h1 class="text-center">Balance $ {{ session['balance'] }}</h1>
+        </div>
+        <div>
+<!--            Deposit-->
+            <form method="post" action="/deposit">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+ $</span>
+                    </div>
+<!--                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">-->
+                    {{ form.amount(class="form-control") }}
+                </div>
+                <button type="submit" class="btn btn-success">Deposit</button>
+            </form>
+
+<!--            Withdraw-->
+            <form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">- $</span>
+                    </div>
+<!--                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">-->
+                    {{ form.amount(class="form-control") }}
+
+                </div>
+                <button type="submit" class="btn btn-danger">Withdraw</button>
+            </form>
+        </div>
+        <a href="{{url_for('auth.logout')}}">Logout</a>
+<!--        transaction-->
+        <div id="transaction">
+        </div>
+
+    </div>
+{% endblock %}

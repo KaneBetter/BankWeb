@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+<title>Login</title>
+<div class="auth-wrapper">
+    <h1>Welcome back</h1>
+    <form method="post" action="/login">
+        {{ form.csrf_token }}
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+            {{ form.username.label }}
+            {{ form.username(type='text', class="form-control", required='')}}
+        </div>
+
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            {{ form.password.label }}
+            {{ form.password(type='password', class="form-control", required='')}}
+        </div>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="remember-me" checked/>
+                    <label class="form-check-label" for="remember-me"> Remember me </label>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="btn-wrapper">
+                <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+            </div>
+
+            <!-- Register buttons -->
+            <div class="text-center">
+                <p>Not a member? <a href="{{url_for('auth.register')}}">Register</a></p>
+            </div>
+    </form>
+</div>
+
+{% endblock %}

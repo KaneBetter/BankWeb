@@ -1,0 +1,90 @@
+import logging
+import sqlalchemy
+from flask import Blueprint, render_template, flash, redirect, request, session
+from flask_login import login_user, logout_user, login_required
+from flask_wtf import FlaskForm as Form
+from wtforms import StringField, DecimalField
+
+from bank import models, exceptions
+
+auth_bp = Blueprint('auth', __name__)
+logger = logging.getLogger(__name__)
+
+
+@auth_bp.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if request.method == 'GET':
+        return render_template('login.html', form=form)
+
+    if not form.validate_on_submit():
+        for name, msgs in form.errors.items():
+            for msg in msgs:
+                print("Error: " + name + "-" + msg)
+    else:
+        try:
+            user = models.User.find_user(form.username.data, form.password.data)
+            # login_user(user, remember=form.remember.data)  # If the checkbox in the form is selected
+            login_user(user)
+            print('Logged in successfully.')
+        except exceptions.UserDoesNotExistOrWrongPassword:
+            flash('Wrong username or password!')
+            return render_template('login.html', form=form)
+        session['username'] = user.username
+        session['balance'] = user.balance
+        return render_template('index.html')
+
+    return render_template('login.html', form=form)
+
+
+@auth_bp.route("/register", methods=["GET", "POST"])
+def register():
+    form = RegisterForm()
+    if request.method == 'GET':
+        return render_template('register.html', form=form)
+    # For Post method.
+    if form.validate_on_submit():
+        user: models.User
+        try:
+            user = models.User.create_user(
+                form.username.data,
+                form.password.data,
+                form.email.data,
+                balance=0
+            )
+            logger.info("form.password:", form.password.data)
+        except sqlalchemy.exc.IntegrityError:
+            flash("The username exists. Please try another one.")
+            logger.info("UsernameExist:", form.username.data)
+            return render_template('register.html', form=form)
+        login_user(user)
+        session['username'] = form.username.data
+        session['balance'] = 0
+        return redirect('/')
+    else:
+        for name, msgs in form.errors.items():
+            for msg in msgs:
+                print("Error:" + name + "-" + msg)
+                # flash(f'{name} error: {msg}')
+    return render_template('register.html', form=form)
+
+
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Logout success.', 'info')
+    return redirect('/')
+
+
+class LoginForm(Form):
+    username = StringField()
+    password = StringField()
+
+
+class RegisterForm(Form):
+    username = StringField()
+    password = StringField()
+    email = StringField()
+
+
