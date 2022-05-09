@@ -1,9 +1,9 @@
 import logging
 import sqlalchemy
-from flask import Blueprint, render_template, flash, redirect, request, session
+from flask import Blueprint, render_template, flash, redirect, request, session, url_for
 from flask_login import login_user, logout_user, login_required
 from flask_wtf import FlaskForm as Form
-from wtforms import StringField, DecimalField
+from wtforms import StringField, DecimalField, BooleanField
 
 from bank import models, exceptions
 
@@ -24,17 +24,16 @@ def login():
     else:
         try:
             user = models.User.find_user(form.username.data, form.password.data)
-            # login_user(user, remember=form.remember.data)  # If the checkbox in the form is selected
-            login_user(user)
+            login_user(user, remember=form.remember.data)  # If the checkbox in the form is selected
+            # login_user(user, remember=True)
             print('Logged in successfully.')
         except exceptions.UserDoesNotExistOrWrongPassword:
             flash('Wrong username or password!')
-            return render_template('login.html', form=form)
+            # return render_template('login.html', form=form)
+            return redirect(url_for("auth.login"))
         session['username'] = user.username
         session['balance'] = user.balance
-        return render_template('index.html')
-
-    return render_template('login.html', form=form)
+        return redirect(url_for("index.index"))
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
@@ -60,7 +59,7 @@ def register():
         login_user(user)
         session['username'] = form.username.data
         session['balance'] = 0
-        return redirect('/')
+        return redirect(url_for("index.index"))
     else:
         for name, msgs in form.errors.items():
             for msg in msgs:
@@ -73,14 +72,15 @@ def register():
 @login_required
 def logout():
     logout_user()
-    flash('Logout success.', 'info')
-    return redirect('/')
+    flash('Logout successfully.', 'info')
+    # return redirect(url_for("index.index"))
+    return redirect(url_for("auth.login"))
 
 
 class LoginForm(Form):
     username = StringField()
     password = StringField()
-
+    remember = BooleanField(default=True)
 
 class RegisterForm(Form):
     username = StringField()

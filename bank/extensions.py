@@ -4,6 +4,9 @@ from flask_login import LoginManager
 
 
 login_manager = LoginManager()
+login_manager.login_view = 'auth.login'  # The view to redirect to
+login_manager.login_message_category = 'warning'
+login_manager.login_message = "Please login first."
 bootstrap = Bootstrap4()
 db = SQLAlchemy()
 

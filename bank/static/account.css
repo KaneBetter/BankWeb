@@ -1,0 +1,88 @@
+@import "main.css";
+
+.account-wrapper {
+    position: relative;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 700px;
+    height: 400px;
+}
+
+
+footer{
+    padding:10px 50px 10px 50px;
+    text-align:center;
+    color:white;
+}
+
+.topnav {
+    background-color: #6F8FAF;
+    overflow: hidden;
+}
+
+
+/* Style the links inside the navigation bar */
+.topnav span {
+    float: left;
+    text-align: center;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 40px;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+#logout-btn {
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.navbar-text {
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.card-text {
+    font-size: 20px;
+}
+
+.card-pad {
+    padding-left: 20px;
+}
+
+.btn-logout {
+    float: right;
+    top: 50%;
+}
+
+.update{
+    padding:20px;
+    width:100%;
+
+    margin:auto;
+    text-align:center;
+}
+
+.container{
+    display:flex;
+
+    flex-direction:column;
+}
+
+.input-box {
+    display: flex;
+    margin-top: 20px;
+}
+
+.amount-input {
+    width: 200px;
+    margin-right: 20px;
+}

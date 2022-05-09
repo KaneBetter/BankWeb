@@ -44,6 +44,7 @@ class User(db.Model, UserMixin):
 
         return user
 
+    # 似乎不需要了这两个函数
     def deposit(self, amount: Decimal):
         self.balance += amount
         if self.balance > constants.MAX_BALANCE:

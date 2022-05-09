@@ -1,5 +1,9 @@
 {% extends "base.html"%}
 
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/auth.css') }}"/>
+{% endblock stylesheet %}
+
 {% block content %}
 
 <title>Login</title>
@@ -25,9 +29,11 @@
             <div class="col d-flex justify-content-center">
                 <!-- Checkbox -->
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="remember-me" checked/>
-                    <label class="form-check-label" for="remember-me"> Remember me </label>
+                    {{ form.remember(class="form-check-input", type="checkbox", id="remember-me") }}
+<!--                    <label class="form-check-label" for="remember-me"> Remember me </label>-->
+                    {{ form.remember.label(class="form-check-label", for="remember-me", text="Remember me") }}
                 </div>
+            </div>
             </div>
 
             <!-- Submit button -->

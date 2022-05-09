@@ -1,44 +1,49 @@
 {% extends "base.html"%}
 
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/account.css') }}"/>
+{% endblock stylesheet %}
+
 {% block content %}
-    <div>
-        <div>
-            <h2>Welcome Back, {{ session['username'] }}</h2>
-        </div>
-        <div>
-<!--            Need to update from every transaction.-->
-                <h1 class="text-center">Balance $ {{ session['balance'] }}</h1>
-        </div>
-        <div>
-<!--            Deposit-->
-            <form method="post" action="/deposit">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">+ $</span>
-                    </div>
-<!--                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">-->
-                    {{ form.amount(class="form-control") }}
+<div class="account-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card bg-default card-pad">
+                <h2 class="card-header">
+                    Account Info
+                </h2>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ data['username'] }}
+                    </p>
                 </div>
-                <button type="submit" class="btn btn-success">Deposit</button>
-            </form>
-
-<!--            Withdraw-->
-            <form>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">- $</span>
-                    </div>
-<!--                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">-->
-                    {{ form.amount(class="form-control") }}
-
+                <div class="card-footer">
+                    <p class="card-text">
+                        Balance: ${{ data['balance'] }}
+                    </p>
                 </div>
-                <button type="submit" class="btn btn-danger">Withdraw</button>
-            </form>
-        </div>
-        <a href="{{url_for('auth.logout')}}">Logout</a>
-<!--        transaction-->
-        <div id="transaction">
-        </div>
+            </div>
+            <div class="update">
+                <form method="post" action="/deposit">
+                    <div class="input-box">
+                        {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount") }}
+                        <button type="submit" class="btn btn-primary">
+                            Deposit
+                        </button>
+                    </div>
+                </form>
 
+                <form method="post" action="/withdraw">
+                    <div class="input-box">
+                        {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount") }}
+                        <button type="submit" class="btn btn-warning btn-md">
+                            Withdraw
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+</div>
 {% endblock %}

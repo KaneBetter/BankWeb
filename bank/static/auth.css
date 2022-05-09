@@ -1,9 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import "main.css";
+
 *:focus {
     outline: none;
-}
-:root {
-    --button-color: #4681f4;
 }
 
 body {

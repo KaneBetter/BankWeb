@@ -13,27 +13,35 @@
         {% endblock %}
 
     <!-- custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles.css')}}">
-    {% endblock %}}
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='account.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css')}}">
+    {% endblock %}
 </head>
 
 <body>
-    <div id="main-container" class="container">
-        <h1 class="center">ICU BANK</h1>
-        <main>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
-            {% block content %}{% endblock %}
-        </main>
+    <div class="topnav">
+        <span class="logo-text">ICU Bank</span>
+        {% if current_user.is_authenticated %}
+        <div class="topnav-right">
+            <a class="btn btn-warning" role="button" id="logout-btn" href="{{url_for('auth.logout')}}">Logout</a></a>
+        </div>
+        {% endif %}
     </div>
+    <main>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
 
     {% block scripts %}
     <!-- Optional JavaScript -->
