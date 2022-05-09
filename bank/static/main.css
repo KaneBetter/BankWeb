@@ -4,5 +4,49 @@
 }
 
 body {
-    background: #DDDDDD;
+    background: #FFFFFF;
+}
+
+.topnav {
+    background-color: #6F8FAF;
+    overflow: hidden;
+}
+
+.navbar-logo {
+    padding: 8px;
+    height: 5rem;
+    object-fit: contain;
+}
+
+/* Style the links inside the navigation bar */
+.topnav span {
+    float: left;
+    text-align: center;
+    color: white;
+    padding: 14px 12px;
+    text-decoration: none;
+    font-size: 40px;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+#logout-btn {
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.btn-logout {
+    float: right;
+    top: 50%;
+}
+
+.navbar-text {
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
 }

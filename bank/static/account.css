@@ -9,66 +9,61 @@
     height: 400px;
 }
 
-
 footer{
     padding:10px 50px 10px 50px;
     text-align:center;
     color:white;
 }
 
-.topnav {
-    background-color: #6F8FAF;
+.card-pad {
     overflow: hidden;
+    border-radius: 10px;
+    border: 1px var(--theme-color) solid;
 }
 
+.card-header {
+    background: var(--theme-color);
+}
 
-/* Style the links inside the navigation bar */
-.topnav span {
-    float: left;
-    text-align: center;
+.card-header h2 {
     color: white;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 40px;
 }
 
-/* Right-aligned section inside the top navigation */
-.topnav-right {
-    float: right;
-}
-
-#logout-btn {
-    text-align: center;
-    margin-top: 20px;
-    margin-right: 10px;
+.mini {
     font-size: 15px;
 }
 
-.navbar-text {
+.normal {
+    font-size: 25px;
+}
+
+.number {
     font-size: 40px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
+}
+
+.large {
+    font-size: 30px;
+}
+
+.account-right {
+    float: right;
+    padding: 1.25rem;
 }
 
 .card-text {
-    font-size: 20px;
-}
-
-.card-pad {
-    padding-left: 20px;
-}
-
-.btn-logout {
-    float: right;
-    top: 50%;
+    font-family: 'Roboto', sans-serif;
 }
 
 .update{
     padding:20px;
     width:100%;
-
     margin:auto;
     text-align:center;
+    display: block;
+}
+
+form {
+    display: inline-block;
 }
 
 .container{
@@ -79,7 +74,11 @@ footer{
 
 .input-box {
     display: flex;
-    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.fix-size {
+    width: 100px;
 }
 
 .amount-input {

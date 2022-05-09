@@ -1,48 +1,58 @@
 {% extends "base.html"%}
 
 {% block stylesheet %}
-<link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/account.css') }}"/>
-{% endblock stylesheet %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/account.css') }}"/>
+{% endblock stylesheet %}是的
 
 {% block content %}
 <div class="account-wrapper">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card bg-default card-pad">
-                <h2 class="card-header">
-                    Account Info
-                </h2>
-                <div class="card-body">
-                    <p class="card-text">
-                        {{ data['username'] }}
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <p class="card-text">
-                        Balance: ${{ data['balance'] }}
-                    </p>
-                </div>
-            </div>
-            <div class="update">
-                <form method="post" action="/deposit">
-                    <div class="input-box">
-                        {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount") }}
-                        <button type="submit" class="btn btn-primary">
-                            Deposit
-                        </button>
-                    </div>
-                </form>
 
-                <form method="post" action="/withdraw">
-                    <div class="input-box">
-                        {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount") }}
-                        <button type="submit" class="btn btn-warning btn-md">
-                            Withdraw
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <div class="card-pad">
+        <div class="card-body card-header">
+            <h2>
+                Account Info
+            </h2>
         </div>
+        <div class="card-body">
+            <p class="card-text normal">
+                {{ data['username'] }} ( {{ data['mail']}} )
+            </p>
+        </div>
+        <div class="account-right">
+            <p class="card-text number">
+                ${{ data['balance'] }}
+            </p>
+
+            <p class="card-text mini">
+                Available Balance
+            </p>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <div class="update">
+            <form method="post" action="/deposit">
+                <div class="input-box">
+                    {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount")
+                    }}
+                    <button type="submit" class="btn btn-primary fix-size">
+                        Deposit
+                    </button>
+                </div>
+            </form>
+
+            <form method="post" action="/withdraw">
+                <div class="input-box">
+                    {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount")
+                    }}
+                    <button type="submit" class="btn btn-warning btn-md fix-size">
+                        Withdraw
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
 </div>
