@@ -20,7 +20,9 @@ def login():
     if not form.validate_on_submit():
         for name, msgs in form.errors.items():
             for msg in msgs:
-                print("Error: " + name + "-" + msg)
+                logger.error("Error: " + name + "-" + msg)
+        return redirect(url_for("index.index"))
+
     else:
         try:
             user = models.User.find_user(form.username.data, form.password.data)

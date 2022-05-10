@@ -4,6 +4,7 @@ from flask import Blueprint, request, redirect, url_for, flash
 from flask_login import current_user
 
 from bank import models, constants, db
+from bank.index import TransactionForm
 from bank.models import Transaction
 
 logger = logging.getLogger(__name__)
@@ -13,10 +14,14 @@ tranx_bp = Blueprint('transcation', __name__)
 def deposit():
     if request.method == 'GET':
         return redirect(url_for("index.index"))
-
+    form = TransactionForm()
+    if not form.validate_on_submit():
+        logger.error(("Not valid deposit request", form))
+        return redirect(url_for("index.index"))
     owner_id = current_user.id
     user = models.User.query.get(owner_id)
-    # TODO 检测 form.validate() 和 user not null
+    if not user:
+        return redirect(url_for("index.index"))
     logger.info(("id:", owner_id, "user:", user))
     logger.info(("request.form", request.form))
     amount = int(request.form.get('amount'))
