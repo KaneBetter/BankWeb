@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 import sqlalchemy
@@ -5,6 +6,8 @@ from decimal import Decimal
 from flask_login import UserMixin
 from bank import exceptions, constants
 from bank.extensions import db
+
+logger = logging.getLogger(__name__)
 
 
 class User(db.Model, UserMixin):
@@ -37,8 +40,8 @@ class User(db.Model, UserMixin):
         user = User.query.filter_by(username=username).first()
         print(username + " " + password)
         if user is None:
-            print(user)
             raise exceptions.UserDoesNotExistOrWrongPassword()
+        logger.info((username + " " + password, user.password, user.username))
         if user.password != password:
             raise exceptions.UserDoesNotExistOrWrongPassword()
 
