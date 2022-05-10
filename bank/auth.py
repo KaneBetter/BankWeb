@@ -35,6 +35,10 @@ def login():
             return redirect(url_for("auth.login"))
         session['username'] = user.username
         session['balance'] = user.balance
+        target = request.args.get("target")
+        if target is not None:
+            logger.info(("Login redirect:", target))
+            return redirect(target)
         return redirect(url_for("index.index"))
 
 
