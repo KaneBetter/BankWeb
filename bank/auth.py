@@ -57,10 +57,9 @@ def register():
                 form.email.data,
                 balance=0
             )
-            logger.info("form.password:", form.password.data)
         except sqlalchemy.exc.IntegrityError:
             flash("The username exists. Please try another one.")
-            logger.info("UsernameExist:", form.username.data)
+            logger.info("UsernameExist: {}".format(form.username.data))
             return render_template('register.html', form=form)
         login_user(user)
         session['username'] = form.username.data

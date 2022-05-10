@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <p class="card-text normal">
-                {{ data['username'] }} ( {{ data['mail']}} )
+                {{ data['username']|safe }} ( {{ data['mail']}} )
             </p>
         </div>
         <div class="account-right">

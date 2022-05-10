@@ -9,7 +9,11 @@
 <title>Login</title>
 <div class="auth-wrapper">
     <h1>Welcome back</h1>
-    <form method="post" action="{{url_for('auth.login')}}?target={{request.args.get('target')}}">
+        {% if request.args.get('target') is none %}
+            <form method="post" action="{{url_for('auth.login')}}">
+        {% else %}
+            <form method="post" action="{{url_for('auth.login')}}?target={{request.args.get('target')}}">
+        {% endif %}
         {{ form.csrf_token }}
         <!-- Username input -->
         <div class="form-outline mb-4">
