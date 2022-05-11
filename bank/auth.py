@@ -30,7 +30,7 @@ def login():
 
     else:
         try:
-            user = models.User.find_user(escape(form.username.data),
+            user = models.User.find_user(form.username.data,
                                          hashlib.sha256(form.password.data.encode('utf-8')).hexdigest(),)
             login_user(user, remember=form.remember.data)  # If the checkbox in the form is selected
             # login_user(user, remember=True)
@@ -57,9 +57,8 @@ def register():
     if form.validate_on_submit():
         user: models.User
         try:
-            print("username:",  escape(form.username.data), "email:", escape(form.email.data))
             user = models.User.create_user(
-                escape(form.username.data),
+                form.username.data,
                 hashlib.sha256(form.password.data.encode('utf-8')).hexdigest(),
                 escape(form.email.data),
                 balance=0
