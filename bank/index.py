@@ -7,6 +7,8 @@ from wtforms import StringField
 from wtforms.validators import DataRequired, Regexp
 from bank import models
 
+from bank import models
+
 index_bp = Blueprint('index', __name__)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

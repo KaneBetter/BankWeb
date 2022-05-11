@@ -29,12 +29,12 @@ def deposit():
     logger.debug(("Type of amoubnt:", amount))
     try:
         amount = float(amount)
-        amount = round(amount, 2)
     except ValueError as e:
         flash("Invalid input")
         logger.error(("Error:", e))
         return redirect(url_for("index.index"))
     user.balance += amount
+    user.balance = round(user.balance, 2)
     record = Transaction(userid=owner_id, amount=amount)
     db.session.add(record)
     # if user.balance > constants.MAX_BALANCE:
@@ -55,12 +55,12 @@ def withdraw():
     amount = request.form.get('amount')
     try:
         amount = float(amount)
-        amount = round(amount, 2)
     except ValueError as e:
         flash("Invalid input")
         logger.error(("Error:", e))
         return redirect(url_for("index.index"))
     user.balance -= amount
+    user.balance = round(user.balance, 2)
     record = Transaction(userid=owner_id, amount=-amount)
     db.session.add(record)
     if user.balance < 0:
