@@ -58,11 +58,12 @@
     </div>
 
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th scope="col">Transaction ID</th>
             <th scope="col">Time</th>
             <th scope="col">Amount</th>
+            <th scope="col">Type</th>
         </tr>
         </thead>
         <tbody>
@@ -70,7 +71,14 @@
         <tr>
             <th scope="row">{{item.id}}</th>
             <td>{{item.timestamp}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{ item.amount|abs }}</td>
+            <td>
+                {% if item.amount < 0 %}
+                <span class="badge badge-pill badge-danger">Withdraw</span>
+                {% else %}
+                <span class="badge badge-pill badge-success">Deposit</span>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
