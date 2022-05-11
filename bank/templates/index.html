@@ -57,5 +57,23 @@
 
     </div>
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Transaction ID</th>
+            <th scope="col">Time</th>
+            <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+        <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.timestamp}}</td>
+            <td>{{item.amount}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

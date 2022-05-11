@@ -17,8 +17,10 @@ logger.setLevel(logging.INFO)
 @login_required
 def index():
     form = TransactionForm()
+    trans = models.Transaction.user_trans(current_user.id)
+    print(trans)
     logger.debug(("see the current:", current_user))
-    return render_template("index.html", form=form)
+    return render_template("index.html", form=form, data=trans)
 
 
 class TransactionForm(Form):

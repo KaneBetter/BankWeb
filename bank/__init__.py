@@ -30,8 +30,10 @@ def register_extensions(app):
         db.create_all()
     login_manager.init_app(app)
 
+
 def setup_logging():
     logging.basicConfig(level=logging.INFO)
+
 
 def register_blueprints(app):
     """
@@ -51,7 +53,6 @@ def unauthorized():
     :return:
     """
     return redirect(url_for('auth.login'))
-
 
 
 app = create_app()
