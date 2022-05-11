@@ -35,7 +35,7 @@
             <form method="post" action="/deposit">
                 <div class="input-box">
                     {{ form.csrf_token }}
-                    {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount")
+                    {{ form.amount(class="form-control amount-input", type="number", step="0.01", placeholder="Enter Amount")
                     }}
                     <button type="submit" class="btn btn-primary fix-size">
                         Deposit
@@ -46,7 +46,7 @@
             <form method="post" action="/withdraw">
                 <div class="input-box">
                     {{ form.csrf_token }}
-                    {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount")
+                    {{ form.amount(class="form-control amount-input", type="number", step="0.01", placeholder="Enter Amount")
                     }}
                     <button type="submit" class="btn btn-warning btn-md fix-size">
                         Withdraw

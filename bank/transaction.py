@@ -17,6 +17,7 @@ def deposit():
     form = TransactionForm()
     if not form.validate_on_submit():
         logger.error(("Not valid deposit request", form))
+        flash("Not a valid deposit request.")
         return redirect(url_for("index.index"))
     owner_id = current_user.id
     user = models.User.query.get(owner_id)
@@ -24,7 +25,15 @@ def deposit():
         return redirect(url_for("index.index"))
     logger.info(("id:", owner_id, "user:", user))
     logger.info(("request.form", request.form))
-    amount = int(request.form.get('amount'))
+    amount = form.amount.data
+    logger.debug(("Type of amoubnt:", amount))
+    try:
+        amount = float(amount)
+        amount = round(amount, 2)
+    except ValueError as e:
+        flash("Invalid input")
+        logger.error(("Error:", e))
+        return redirect(url_for("index.index"))
     user.balance += amount
     record = Transaction(userid=owner_id, amount=amount)
     db.session.add(record)
@@ -43,7 +52,14 @@ def withdraw():
     # TODO 检测 form.validate() 和 user not null
     logger.info(("id:", owner_id, "user:", user))
     logger.info(("request.form", request.form))
-    amount = int(request.form.get('amount'))
+    amount = request.form.get('amount')
+    try:
+        amount = float(amount)
+        amount = round(amount, 2)
+    except ValueError as e:
+        flash("Invalid input")
+        logger.error(("Error:", e))
+        return redirect(url_for("index.index"))
     user.balance -= amount
     record = Transaction(userid=owner_id, amount=-amount)
     db.session.add(record)
