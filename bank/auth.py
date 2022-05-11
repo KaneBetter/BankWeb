@@ -1,6 +1,7 @@
 import logging
 import sqlalchemy
-from flask import Blueprint, render_template, flash, redirect, request, session, url_for
+import hashlib
+from flask import Blueprint, render_template, flash, redirect, request, session, url_for, escape
 from flask_login import login_user, logout_user, login_required
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, DecimalField, BooleanField
@@ -25,7 +26,8 @@ def login():
 
     else:
         try:
-            user = models.User.find_user(form.username.data, form.password.data)
+            user = models.User.find_user(escape(form.username.data),
+                                         hashlib.sha256(form.password.data.encode('utf-8')).hexdigest(),)
             login_user(user, remember=form.remember.data)  # If the checkbox in the form is selected
             # login_user(user, remember=True)
             print('Logged in successfully.')
@@ -51,10 +53,11 @@ def register():
     if form.validate_on_submit():
         user: models.User
         try:
+            print("username:",  escape(form.username.data), "email:", escape(form.email.data))
             user = models.User.create_user(
-                form.username.data,
-                form.password.data,
-                form.email.data,
+                escape(form.username.data),
+                hashlib.sha256(form.password.data.encode('utf-8')).hexdigest(),
+                escape(form.email.data),
                 balance=0
             )
         except sqlalchemy.exc.IntegrityError:

@@ -50,9 +50,9 @@ class User(db.Model, UserMixin):
     # 似乎不需要了这两个函数
     def deposit(self, amount: Decimal):
         self.balance += amount
-        if self.balance > constants.MAX_BALANCE:
-            db.session.rollback()
-            raise exceptions.BalanceOverflow()
+        # if self.balance > constants.MAX_BALANCE:
+        #     db.session.rollback()
+        #     raise exceptions.BalanceOverflow()
         db.session.commit()
 
     def withdraw(self, amount: Decimal):

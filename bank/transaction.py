@@ -28,9 +28,9 @@ def deposit():
     user.balance += amount
     record = Transaction(userid=owner_id, amount=amount)
     db.session.add(record)
-    if user.balance > constants.MAX_BALANCE:
-        flash("Ooops. You have too much money.")
-        db.session.rollback()
+    # if user.balance > constants.MAX_BALANCE:
+    #     flash("Ooops. You have too much money.")
+    #     db.session.rollback()
     db.session.commit()
     return redirect(url_for("index.index"))
 
@@ -38,7 +38,6 @@ def deposit():
 def withdraw():
     if request.method == 'GET':
         return redirect(url_for("index.index"))
-
     owner_id = current_user.id
     user = models.User.query.get(owner_id)
     # TODO 检测 form.validate() 和 user not null

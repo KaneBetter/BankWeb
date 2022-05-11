@@ -2,7 +2,7 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/account.css') }}"/>
-{% endblock stylesheet %}是的
+{% endblock stylesheet %}
 
 {% block content %}
 <div class="account-wrapper">
@@ -15,12 +15,12 @@
         </div>
         <div class="card-body">
             <p class="card-text normal">
-                {{ data['username']|safe }} ( {{ data['mail']}} )
+                {{ data['username']|safe }} ( {{ data['mail']|safe}} )
             </p>
         </div>
         <div class="account-right">
             <p class="card-text number">
-                ${{ data['balance'] }}
+                ${{ data['balance']|safe }}
             </p>
 
             <p class="card-text mini">
@@ -45,6 +45,7 @@
 
             <form method="post" action="/withdraw">
                 <div class="input-box">
+                    {{ form.csrf_token }}
                     {{ form.amount(class="form-control amount-input", type="number", placeholder="Enter Amount")
                     }}
                     <button type="submit" class="btn btn-warning btn-md fix-size">
