@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, flash, redirect, request, session,
 from flask_login import login_user, logout_user, login_required
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, DecimalField, BooleanField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, EqualTo
 
 from bank import models, exceptions
 
@@ -96,6 +96,7 @@ class LoginForm(Form):
 class RegisterForm(Form):
     username = StringField(validators=[DataRequired()])
     password = StringField(validators=[DataRequired()])
+    retyped_pwd = StringField(validators=[DataRequired(), EqualTo('password')])
     email = StringField(validators=[Email()])
 
 
