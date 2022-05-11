@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from flask import Blueprint, request, redirect, url_for, flash
@@ -35,7 +36,7 @@ def deposit():
         return redirect(url_for("index.index"))
     user.balance += amount
     user.balance = round(user.balance, 2)
-    record = Transaction(userid=owner_id, amount=amount)
+    record = Transaction(userid=owner_id, amount=amount, timestamp=datetime.datetime.now())
     db.session.add(record)
     # if user.balance > constants.MAX_BALANCE:
     #     flash("Ooops. You have too much money.")
@@ -61,7 +62,7 @@ def withdraw():
         return redirect(url_for("index.index"))
     user.balance -= amount
     user.balance = round(user.balance, 2)
-    record = Transaction(userid=owner_id, amount=-amount)
+    record = Transaction(userid=owner_id, amount=-amount, timestamp=datetime.datetime.now())
     db.session.add(record)
     if user.balance < 0:
         flash("Ooops. You don't have that amount of money.")
