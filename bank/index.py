@@ -4,6 +4,7 @@ from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from flask_wtf import FlaskForm as Form
 from wtforms import IntegerField
+from wtforms.validators import DataRequired
 
 from bank import models
 
@@ -24,4 +25,4 @@ def index():
 
 
 class TransactionForm(Form):
-    amount = IntegerField()
+    amount = IntegerField(validators=[DataRequired()])
