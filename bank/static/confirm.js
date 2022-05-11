@@ -28,3 +28,8 @@ function testPassword() {
     const password = document.querySelector('input[id=password]')
     return regex.test(password.value);
 }
+
+function setTwoNumberDecimal() {
+    const balance = document.querySelector('input[id=balance]')
+    balance.value = parseFloat(balance.value).toFixed(2);
+}

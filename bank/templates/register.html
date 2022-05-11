@@ -38,7 +38,7 @@
             <!-- Initial deposit input -->
             <div class="form-outline mb-4">
                 {{ form.balance.label }}
-                {{ form.balance(type='number', step="0.01", class="form-control", required='', value="0.00")}}
+                {{ form.balance(type='number', step="0.01", class="form-control", required='', value="0.00", id="balance", onChange="setTwoNumberDecimal()")}}
             </div>
 
             <!-- Submit button -->
