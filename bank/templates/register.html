@@ -16,12 +16,12 @@
             <!-- Username input -->
             <div class="form-outline mb-4">
                 {{ form.username.label }}
-                {{ form.username(type='text', class="form-control", required='')}}
+                {{ form.username(type='text', class="form-control", required='', id="username", onChange="verifyUserName()")}}
             </div>
             <!-- Email input -->
             <div class="form-outline mb-4">
                 {{ form.email.label }}
-                {{ form.email(type='email', class="form-control", required='')}}
+                {{ form.email(type='email', class="form-control", required='', id="email")}}
             </div>
             <!-- Password input -->
             <div class="form-outline mb-4">
