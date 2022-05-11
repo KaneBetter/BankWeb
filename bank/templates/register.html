@@ -36,7 +36,10 @@
             </div>
 
             <!-- Initial deposit input -->
-
+            <div class="form-outline mb-4">
+                {{ form.balance.label }}
+                {{ form.balance(type='number', step="0.01", class="form-control", required='')}}
+            </div>
 
             <!-- Submit button -->
             <div class="upper-padding btn-wrapper">
