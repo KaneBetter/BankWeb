@@ -89,6 +89,17 @@ class LoginForm(Form):
 
 
 class RegisterForm(Form):
+    def validate_balance(form, field):
+        amount = field.data
+        try:
+            amount = float(amount)
+            amount = round(amount, 2)
+        except ValueError as e:
+            logger.error(("Error:", e))
+            raise ValidationError("Invalid input.")
+        if amount < 0.00 or amount > 4294967295.99:
+            raise ValidationError("Invalid input.")
+
     username = StringField(validators=[
         DataRequired(),
         Length(min=1, max=127),
@@ -104,7 +115,8 @@ class RegisterForm(Form):
         EqualTo('password', message='Password does not match.')
     ])
     email = StringField(validators=[Email()])
-    balance = DecimalField(validators=[
+    balance = StringField(validators=[
         DataRequired(),
-        NumberRange(min=0.00, max=4294967295.99, message='Balance overflow.')
+        # NumberRange(min=0.00, max=4294967295.99, message='Balance overflow.'),
+        Regexp("^(0|[1-9][0-9]*){1}(\.[0-9]{2})?$", message="Invalid input.")
     ])
