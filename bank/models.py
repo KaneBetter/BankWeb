@@ -47,23 +47,14 @@ class User(db.Model, UserMixin):
 
         return user
 
-    # 似乎不需要了这两个函数
-    def deposit(self, amount: Decimal):
-        self.balance += amount
-        # if self.balance > constants.MAX_BALANCE:
-        #     db.session.rollback()
-        #     raise exceptions.BalanceOverflow()
-        db.session.commit()
-
-    def withdraw(self, amount: Decimal):
-        self.balance -= amount
-        if self.balance < 0:
-            db.session.rollback()
-            raise exceptions.BalanceOverflow()
-        db.session.commit()
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey("user.id"))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     amount = db.Column(db.Integer, nullable=False)
+
+    @staticmethod
+    def user_trans(userid: str) -> 'Transaction':
+        trans = Transaction.query.filter_by(userid=userid).limit(10).all()
+        return trans
