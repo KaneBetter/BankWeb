@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True, nullable=False, )
-    password = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(127), unique=True, nullable=False, )
+    password = db.Column(db.String(127), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     balance = db.Column(db.FLOAT, nullable=False)
     transactions = db.relationship('Transaction', backref='user', lazy=True)
@@ -51,10 +51,10 @@ class User(db.Model, UserMixin):
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey("user.id"))
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.now(), index=True)
     amount = db.Column(db.Integer, nullable=False)
 
     @staticmethod
     def user_trans(userid: str) -> 'Transaction':
-        trans = Transaction.query.filter_by(userid=userid).limit(10).all()
+        trans = Transaction.query.filter_by(userid=userid).order_by(Transaction.id.desc()).limit(10).all()
         return trans

@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField
 from wtforms.validators import DataRequired, Regexp
+from bank import models
 
 index_bp = Blueprint('index', __name__)
 logger = logging.getLogger(__name__)

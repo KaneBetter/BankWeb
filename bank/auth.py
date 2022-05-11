@@ -107,8 +107,6 @@ class RegisterForm(Form):
     ])
     password = StringField(validators=[
         DataRequired()
-        #Length(min=1, max=127),
-        #Regexp(r'^[a-z0-9_\-\.]+$', message='Password invalid.')
     ])
     retyped_pwd = StringField(validators=[
         DataRequired(),
@@ -117,6 +115,5 @@ class RegisterForm(Form):
     email = StringField(validators=[Email()])
     balance = StringField(validators=[
         DataRequired(),
-        # NumberRange(min=0.00, max=4294967295.99, message='Balance overflow.'),
         Regexp("^(0|[1-9][0-9]*){1}(\.[0-9]{2})?$", message="Invalid input.")
     ])
