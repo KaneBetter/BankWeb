@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, flash, redirect, request, session,
 from flask_login import login_user, logout_user, login_required
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, DecimalField, BooleanField
+from wtforms.validators import DataRequired, Email
 
 from bank import models, exceptions
 
@@ -15,6 +16,9 @@ logger = logging.getLogger(__name__)
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    target = request.args.get("target")
+    if target:
+        logger.info("target: {}".format(target))
     if request.method == 'GET':
         return render_template('login.html', form=form)
 
@@ -71,8 +75,8 @@ def register():
     else:
         for name, msgs in form.errors.items():
             for msg in msgs:
-                print("Error:" + name + "-" + msg)
-                # flash(f'{name} error: {msg}')
+                logger.error(("Error:" + name + "-" + msg))
+                flash(f'{name} error: {msg}')
     return render_template('register.html', form=form)
 
 
@@ -86,13 +90,13 @@ def logout():
 
 
 class LoginForm(Form):
-    username = StringField()
-    password = StringField()
+    username = StringField(validators=[DataRequired()])
+    password = StringField(validators=[DataRequired()])
     remember = BooleanField(default=True)
 
 class RegisterForm(Form):
-    username = StringField()
-    password = StringField()
-    email = StringField()
+    username = StringField(validators=[DataRequired()])
+    password = StringField(validators=[DataRequired()])
+    email = StringField(validators=[Email()])
 
 
