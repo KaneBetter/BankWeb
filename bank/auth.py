@@ -112,7 +112,7 @@ class RegisterForm(Form):
         DataRequired(),
         EqualTo('password', message='Password does not match.')
     ])
-    email = StringField(validators=[Email()])
+    email = StringField(validators=[Regexp(".*@([a-zA-Z\d]+)\.[a-zA-Z]+$", message="Invalid email address.")])
     balance = StringField(validators=[
         DataRequired(),
         Regexp("^(0|[1-9][0-9]*){1}(\.[0-9]{2})?$", message="Invalid input.")
