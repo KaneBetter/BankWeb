@@ -18,10 +18,7 @@ logger.setLevel(logging.INFO)
 def index():
     form = TransactionForm()
     logger.debug(("see the current:", current_user))
-    owner_id = current_user.id
-    user = models.User.query.get(owner_id)
-    data = {'username': user.username, 'balance': user.balance, 'mail': user.email}
-    return render_template("index.html", form=form, data=data)
+    return render_template("index.html", form=form)
 
 
 class TransactionForm(Form):

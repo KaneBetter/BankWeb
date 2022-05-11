@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(30), unique=True, nullable=False, )
     password = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    balance = db.Column(db.Integer, nullable=False)
+    balance = db.Column(db.FLOAT, nullable=False)
     transactions = db.relationship('Transaction', backref='user', lazy=True)
     db.extend_existing = True
 

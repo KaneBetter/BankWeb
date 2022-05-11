@@ -15,12 +15,12 @@
         </div>
         <div class="card-body">
             <p class="card-text normal">
-                {{ data['username']|safe }} ( {{ data['mail']|safe}} )
+                {{ current_user.username |safe }} ( {{ current_user.email |safe}} )
             </p>
         </div>
         <div class="account-right">
             <p class="card-text number">
-                ${{ data['balance']|safe }}
+                ${{ current_user.balance }}
             </p>
 
             <p class="card-text mini">
