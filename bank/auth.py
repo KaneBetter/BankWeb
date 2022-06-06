@@ -1,4 +1,5 @@
 import logging
+import re
 import sqlalchemy
 import hashlib
 from flask import Blueprint, render_template, flash, redirect, request, session, url_for, escape
@@ -17,6 +18,8 @@ logger = logging.getLogger(__name__)
 def login():
     form = LoginForm()
     target = request.args.get("target")
+    logger.info(("Target is:", target))
+    target = re.sub(r"(?<=[a-z])\r?\n", " ", target)
     if target:
         logger.info("target: {}".format(target))
     if request.method == 'GET':
