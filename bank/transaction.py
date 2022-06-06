@@ -48,6 +48,10 @@ def deposit():
 def withdraw():
     if request.method == 'GET':
         return redirect(url_for("index.index"))
+    form = TransactionForm()
+    if not form.validate_on_submit():
+        logger.error(("Not valid withdraw request", form))
+        return redirect(url_for("index.index"))
     owner_id = current_user.id
     user = models.User.query.get(owner_id)
     # TODO 检测 form.validate() 和 user not null
