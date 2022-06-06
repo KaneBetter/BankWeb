@@ -57,7 +57,7 @@ def register():
             user = models.User.create_user(
                 escape(form.username.data),
                 hashlib.sha256(form.password.data.encode('utf-8')).hexdigest(),
-                form.email.data,
+                escape(form.email.data),
                 balance=form.balance.data
             )
         except sqlalchemy.exc.IntegrityError:
